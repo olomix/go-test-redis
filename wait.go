@@ -18,12 +18,18 @@ type waitOptions struct {
 
 type waitOptionFn func(o *waitOptions)
 
+// WithTimeout overwrite default timeout to wait for redis availability in
+// WaitForRedis function
 func WithTimeout(timeout time.Duration) waitOptionFn {
 	return func(o *waitOptions) {
 		o.timeout = timeout
 	}
 }
 
+// WaitForRedis is useful to use in TestMain function to wait until
+// redis would be available. It may be used if redis is not running
+// all the time and is starting in parallel with tests. Default timeout to
+// wait for redis is 5 seconds. It may be overwritten using WithTimeout option.
 func WaitForRedis(ops ...waitOptionFn) error {
 	var options = waitOptions{timeout: 5 * time.Second}
 	for _, fn := range ops {

@@ -46,6 +46,9 @@ func newRedisOpts(db int) *redis.Options {
 
 }
 
+// WithRedis return redis client connected to empty redis database.
+// If all databases are busy at the moment, we are waiting up to one minute
+// for empty one. On test exit, we flush all data from redis database.
 func WithRedis(t testing.TB, opts ...Option) *redis.Client {
 	var op = testRedisOptions{
 		waitForDBTimeout: waitForDBTimeout,
@@ -291,4 +294,3 @@ func databasesNum(t testing.TB, cli *redis.Client) int {
 	}
 	return int(i)
 }
-
