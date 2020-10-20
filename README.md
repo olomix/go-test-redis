@@ -2,7 +2,7 @@
 Helper tool to test Go programs against Redis
 
 `go-test-redis` expects the redis server address in REDISADDR
-environment variable.
+environment variable. If it is empty, default address is `:6379`.
 
 Example:
 

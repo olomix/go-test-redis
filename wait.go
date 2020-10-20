@@ -2,7 +2,6 @@ package go_test_redis
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net"
 	"os"
@@ -38,7 +37,7 @@ func WaitForRedis(ops ...waitOptionFn) error {
 
 	redisAddr := os.Getenv("REDISADDR")
 	if redisAddr == "" {
-		return errors.New("")
+		redisAddr = ":6379"
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), options.timeout)
